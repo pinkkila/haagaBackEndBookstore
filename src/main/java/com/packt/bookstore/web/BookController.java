@@ -47,11 +47,11 @@ public class BookController {
     @GetMapping("/editbook/{id}")
     public String geteditBook(@PathVariable("id") Book book, Model model) {
         model.addAttribute("book", book);
-        return "editbook";
+        return "edit";
     }
 
-    @PostMapping("/saveeditbook")
-    public String saveeditBook(@ModelAttribute Book book) {
+    @PostMapping("/save")
+    public String save(@ModelAttribute Book book) {
         repository.save(book);
         return "redirect:/allbooks";
     }
