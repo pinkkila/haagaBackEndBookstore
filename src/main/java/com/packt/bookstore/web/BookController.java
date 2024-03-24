@@ -75,4 +75,11 @@ public class BookController {
         return repository.findById(id);
     }
 
+    // Security
+
+    @GetMapping("/login") 
+        public String login() {
+            return "login";
+    }
+
 }
