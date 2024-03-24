@@ -8,7 +8,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
+import com.packt.bookstore.domain.AppUser;
+import com.packt.bookstore.domain.AppUserRepository;
 import com.packt.bookstore.domain.Book;
 import com.packt.bookstore.domain.BookRepository;
 import com.packt.bookstore.domain.Category;
@@ -17,13 +18,14 @@ import com.packt.bookstore.domain.CategoryRepository;
 @SpringBootApplication
 public class BookstoreApplication implements CommandLineRunner {
 	private static final Logger logger = LoggerFactory.getLogger(BookstoreApplication.class);
-
 	private final BookRepository repository;
 	private final CategoryRepository crepository;
+	private final AppUserRepository appUserRepository;
 
-	public BookstoreApplication(BookRepository repository, CategoryRepository crepository) {
+	public BookstoreApplication(BookRepository repository, CategoryRepository crepository, AppUserRepository appUserRepository) {
 		this.repository = repository;
 		this.crepository = crepository;
+		this.appUserRepository = appUserRepository;
 	}
 
 	public static void main(String[] args) {
@@ -46,6 +48,9 @@ public class BookstoreApplication implements CommandLineRunner {
 		for (Book book : repository.findAll()) {
 			logger.info("title: {}", book.getTitle());
 		}
+
+		appUserRepository.save(new AppUser("user", "$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue", "USER"));
+		appUserRepository.save(new AppUser("admin", "$2a$10$8cjz47bjbR4Mn8GMg9IZx.vyjhLXR/SKKMSZ9.mP9vpMu0ssKi8GW", "ADMIN"));
 	}
 
 }
